@@ -1,0 +1,167 @@
+{
+  "name": "Customer Name Validation -Demo V1",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Customer Registration Form",
+        "formDescription": "Please enter your name and submit the form",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f88b1536-91f0-4957-9a38-26ebeb5bd2ae",
+      "name": "On form submission"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6e364650-fd35-4259-8388-629f3dae0991",
+              "name": "CleanName",
+              "value": "={{ ($json.Name ?? '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "dd90951d-9c85-4bb3-91e7-851a23fc3144",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8907a9ab-80e1-4fb9-b0ba-5190ff2e33de",
+              "leftValue": "={{ $json.CleanName }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "0f352afd-ce89-4d5a-8f08-5ad32991164c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Successful",
+        "completionMessage": "Your name has been submitted successfully",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        672,
+        -96
+      ],
+      "id": "c88f50cb-7143-4d51-bb1a-6a0b9bce7ecb",
+      "name": "Form"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Not Successful",
+        "completionMessage": "Please enter your name before submitting the form",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        672,
+        96
+      ],
+      "id": "05e7dd86-f433-4963-aaa7-32838e9ba477",
+      "name": "Form1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Form1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "nodeGroups": [],
+  "tags": []
+}
