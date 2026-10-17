@@ -22,7 +22,7 @@ The project was developed as a practical exercise in workflow automation, data t
 - [Project Objectives](#project-objectives)
 - [Technology Stack](#technology-stack)
 - [Workflow Architecture](#workflow-architecture)
-- ![n8n Customer Name Validation Workflow](Workflow-overview.png)
+  ![n8n Customer Name Validation Workflow](Workflow-overview.png)
 - [How It Works](#how-it-works)
 - [Validation Logic](#validation-logic)
 - [Testing and Results](#testing-and-results)
