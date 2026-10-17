@@ -189,6 +189,51 @@ The current validation checks whether the cleaned name contains any text. It doe
 
 A production implementation would require additional validation, privacy and security controls.
 
+## Installation and Usage
+
+You can import this workflow into your own n8n environment and test the customer name-validation process.
+
+### Prerequisites
+
+- Access to an n8n instance (Cloud or self-hosted).
+- Basic familiarity with the n8n workflow editor.
+- A web browser for testing form submissions.
+
+### Import the Workflow
+
+1. Download [`customer-name-validation-v1.json`](customer-name-validation-v1.json) from this repository.
+2. Open your n8n workspace.
+3. Create a new workflow.
+4. From the workflow editor menu, select **Import from File**.
+5. Select the downloaded JSON file.
+6. Verify that all five nodes and their connections appear correctly.
+7. Save the imported workflow.
+
+### Run the Demonstration
+
+1. Open the **On form submission** node.
+2. Confirm that the Name field is configured as a text input and is not marked as required.
+3. Start a test execution and open the Test Form URL.
+4. Enter a name and submit the form.
+5. Confirm that the completion page displays **Successful**.
+6. Repeat the test with an empty name and then with spaces only.
+7. Confirm that both invalid inputs display **Not Successful**.
+
+### Expected Results
+
+| Input | Expected Response |
+|---|---|
+| Adewale | Successful |
+| Empty name | Not Successful |
+| Five spaces | Not Successful |
+
+### Important Notes
+
+- The workflow is intended for learning and demonstration.
+- The exported workflow does not require external API credentials.
+- Each n8n environment generates its own form endpoint.
+- Test the workflow before publishing it for regular use.
+
 ## Future Improvements
 
 - Add stronger name-format validation.
